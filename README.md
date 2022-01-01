@@ -1,5 +1,6 @@
 # Open metrics playgroung
 
+$ go run bogops_exporter.go
 $ curl http://127.0.0.1:8080/metrics
 ```
 # TYPE ze_bogops_at_octo gauge
