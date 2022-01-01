@@ -1,4 +1,4 @@
-module github.com/pomverte/go_exporter
+module github.com/pomverte/bogops_exporter
 
 go 1.17
 
