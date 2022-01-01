@@ -4,19 +4,18 @@ import (
 	"net/http"
 
 	"github.com/prometheus/client_golang/prometheus"
+	"github.com/prometheus/client_golang/prometheus/promauto"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
 func main() {
-	bogopsGauge := prometheus.NewGaugeVec(
+	bogopsGauge := promauto.NewGaugeVec(
 		prometheus.GaugeOpts{
 			Name: "ze_bogops_at_octo",
 			Help: "Les bogops chez OCTO.",
 		},
 		[]string{"level"},
 	)
-
-	prometheus.MustRegister(bogopsGauge)
 
 	bogopsGauge.WithLabelValues("Consultant").Set(11)
 	bogopsGauge.WithLabelValues("Confirmé").Set(16)
