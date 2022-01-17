@@ -30,11 +30,7 @@ var (
 )
 
 func initbogopsGauge() {
-	bogopsGauge.WithLabelValues("Consultant").Set(11)
-	bogopsGauge.WithLabelValues("Confirmé").Set(16)
-	bogopsGauge.WithLabelValues("Senior").Set(4)
-	bogopsGauge.WithLabelValues("Manager Ref").Set(1)
-	bogopsGauge.WithLabelValues("Confirmed Mgr Ref").Set(1)
+	bogopsGauge.WithLabelValues("Consultant").Set(42)
 }
 
 func getStatusCode() float64 {
