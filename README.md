@@ -14,3 +14,15 @@ ze_bogops_at_octo{level="Consultant"} 42
 # HELP ze_status_code Un status code.
 ze_status_code 201
 ```
+
+## My first golang steps
+
+```
+go mod init bogops_exporter
+
+go get github.com/prometheus/client_golang/prometheus
+go get github.com/prometheus/client_golang/prometheus/promauto
+go get github.com/prometheus/client_golang/prometheus/promhttp
+
+go mod tidy
+```
