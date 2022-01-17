@@ -39,7 +39,6 @@ func initbogopsGauge() {
 
 func getStatusCode() float64 {
 
-	rand.Seed(time.Now().UnixNano())
 	min := 200
 	max := 208
 
@@ -55,6 +54,9 @@ func getStatusCode() float64 {
 }
 
 func main() {
+
+	rand.Seed(time.Now().UnixNano())
+
 	initbogopsGauge()
 
 	http.Handle("/metrics", promhttp.Handler())
