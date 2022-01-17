@@ -50,9 +50,9 @@ func intiStatusCode() {
 			if err != nil {
 				fmt.Println(err.Error())
 				teaPot.Set(math.NaN())
-			} else {
-				teaPot.Set(float64(response.StatusCode))
+				continue // passer au tour de boucle suivant
 			}
+			teaPot.Set(float64(response.StatusCode))
 		}
 	}()
 }
