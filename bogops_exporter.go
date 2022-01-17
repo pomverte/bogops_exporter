@@ -2,9 +2,9 @@ package main
 
 import (
 	"fmt"
+	"math"
 	"math/rand"
 	"net/http"
-	"os"
 	"time"
 
 	"github.com/prometheus/client_golang/prometheus"
@@ -42,16 +42,17 @@ func intiStatusCode() {
 	min := 200
 	max := 208
 
-	go func() {
+	go func() { // go routine (asynchrone)
 		for {
 			httpBinUrl := fmt.Sprintf("https://httpbin.org/status/%d", min+rand.Intn(max-min+1))
 			fmt.Println(httpBinUrl)
 			response, err := http.Get(httpBinUrl)
 			if err != nil {
-				fmt.Print(err.Error())
-				os.Exit(1)
+				fmt.Println(err.Error())
+				teaPot.Set(math.NaN())
+			} else {
+				teaPot.Set(float64(response.StatusCode))
 			}
-			teaPot.Set(float64(response.StatusCode))
 
 			time.Sleep(10 * time.Second)
 		}
