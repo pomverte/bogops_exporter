@@ -20,11 +20,12 @@ var (
 		},
 		[]string{"level"},
 	)
-	teaPot = promauto.NewGauge(
+	teaPot = promauto.NewGaugeFunc(
 		prometheus.GaugeOpts{
 			Name: "ze_status_code",
 			Help: "Un status code.",
 		},
+		getStatusCode,
 	)
 )
 
@@ -36,31 +37,25 @@ func initbogopsGauge() {
 	bogopsGauge.WithLabelValues("Confirmed Mgr Ref").Set(1)
 }
 
-func intiStatusCode() {
+func getStatusCode() float64 {
 
 	rand.Seed(time.Now().UnixNano())
 	min := 200
 	max := 208
 
-	go func() { // go routine (asynchrone)
-		for range time.Tick(5 * time.Second) {
-			httpBinUrl := fmt.Sprintf("https://httpbin.org/status/%d", min+rand.Intn(max-min+1))
-			fmt.Println(httpBinUrl)
-			response, err := http.Get(httpBinUrl)
-			if err != nil {
-				fmt.Println(err.Error())
-				teaPot.Set(math.NaN())
-				continue // passer au tour de boucle suivant
-			}
-			teaPot.Set(float64(response.StatusCode))
-		}
-	}()
+	httpBinUrl := fmt.Sprintf("https://httpbin.org/status/%d", min+rand.Intn(max-min+1))
+	fmt.Println(httpBinUrl)
+
+	response, err := http.Get(httpBinUrl)
+	if err != nil {
+		fmt.Println(err.Error())
+		return math.NaN()
+	}
+	return float64(response.StatusCode)
 }
 
 func main() {
 	initbogopsGauge()
-
-	intiStatusCode()
 
 	http.Handle("/metrics", promhttp.Handler())
 	http.ListenAndServe(":8080", nil)
