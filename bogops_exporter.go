@@ -43,7 +43,7 @@ func intiStatusCode() {
 	max := 208
 
 	go func() { // go routine (asynchrone)
-		for {
+		for range time.Tick(5 * time.Second) {
 			httpBinUrl := fmt.Sprintf("https://httpbin.org/status/%d", min+rand.Intn(max-min+1))
 			fmt.Println(httpBinUrl)
 			response, err := http.Get(httpBinUrl)
@@ -53,8 +53,6 @@ func intiStatusCode() {
 			} else {
 				teaPot.Set(float64(response.StatusCode))
 			}
-
-			time.Sleep(10 * time.Second)
 		}
 	}()
 }
