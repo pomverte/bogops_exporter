@@ -1,0 +1,9 @@
+---
+version: "3.9"
+services:
+  bogops_exporter:
+    build: .
+    image: bogops_exporter:latest
+    container_name: bogops_exporter
+    ports:
+      - "8080:8080"
