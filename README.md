@@ -15,6 +15,13 @@ ze_bogops_at_octo{level="Consultant"} 42
 ze_status_code 201
 ```
 
+## Build the package
+
+```
+go build bogops_exporter.go
+./bogops_exporter
+```
+
 ## My first golang steps
 
 ```
